@@ -1,5 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <!-- 준비중입니다 이미지로 처리 -->
+    <img alt="ready img" src="../assets/ready-img.png">
   </div>
 </template>
