@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
+/*
+  해당 파일은 라우팅을 위한 정보를 담고 있다.
+  url path와 컴포넌트를 매핑시켜준다.
+*/
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -26,7 +29,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/about',
     name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+  },
+  {
+    path: '/boards/:id',
+    name: 'BoardDetail',
+    component: () => import('../components/BoardDetail.vue'),
+    // props: true,
+  },
 ]
 
 const router = createRouter({
