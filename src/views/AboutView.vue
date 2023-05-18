@@ -4,3 +4,12 @@
     <img alt="ready img" src="../assets/ready-img.png">
   </div>
 </template>
+<style scoped>
+img {
+    margin: auto;
+    display: block;
+}
+.about {
+  margin: 100px;
+}
+</style>
