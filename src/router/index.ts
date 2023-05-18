@@ -36,6 +36,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../components/BoardDetail.vue'),
     // props: true,
   },
+  {
+    path: '/boards/write',
+    name: 'BoardCreate',
+    component: () => import('../views/BoardCreate.vue'),
+    // props: true,
+  },
 ]
 
 const router = createRouter({
