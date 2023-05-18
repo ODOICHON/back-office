@@ -13,27 +13,23 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import BoardType from '@/types/BoardType';
-import { getBoards } from '@/api/AxiosService';
+import { useStore } from 'vuex';
 
 export default defineComponent({
     name: 'BoardDetail',
     setup() {
         const route = useRoute();
+        const store = useStore();
         const boardId = computed(() => route.params.id);
-        const selectedItem = ref<BoardType | null>(null); // 반응형으로 값의 변경을 감지하기 위해 선언
+        const selectedItem = computed(() => store.state.boards.boards);
 
-        const fetchItem = async (id: number) => {
-            try {
-                const response = await getBoards(id);
-                selectedItem.value = response.data.data;
-            } catch (error) {
-                console.error(error);
-            }
-        };
+        const getBoard = (id: number) => {
+        store.dispatch('getBoard', id);
+
+    };
 
         onMounted(() => {
-            fetchItem(Number(boardId.value));
+            getBoard(Number(boardId.value));
         });
 
         return {
