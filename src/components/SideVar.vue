@@ -13,10 +13,8 @@
             <!-- 금주의 인기 게시물 리스트 ( TOP 3 ) -->
             <div class="p-4">
                 <h4 class="fst-italic">HOT POSTS</h4>
-                <ol class="list-unstyled">
-                    <li><a href="#">게시글#1</a></li>
-                    <li><a href="#">게시글#2</a></li>
-                    <li><a href="#">게시글#3</a></li>
+                <ol class="list-unstyled" v-for="board in boards" :key="board.boardId">
+                    <li><router-link :to="`/boards/${board.boardId}`" @click="fetchItem(board.boardId)">{{ board.title }}</router-link></li>
                 </ol>
             </div>
         </div>
@@ -25,9 +23,40 @@
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
+import { useStore } from 'vuex';
+import { computed, onMounted, PropType, ref } from 'vue';
+import BoardType, { BoardData } from '@/types/BoardType';
+import { getBoards } from '@/api/AxiosService';
 
-export default class SideVar extends Vue{
+export default {
+    name: 'SideVar',
+    props: {
+    boards: {
+        required: true,
+        type: Array as PropType<BoardData[]> ,
+        // type: Array as PropType<BoardType[]>
+    },
+    },
+    setup() {
+    const store = useStore();
+    const selectedItem = ref<BoardType | null>(null);
 
+    const fetchItem = async (id: number) => {
+      try {
+        const response = await getBoards(id);
+        selectedItem.value = response.data.data;
+        console.log("click detail");
+        store.state.boards.boards = response.data.data;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    return {
+        selectedItem,
+        fetchItem
+    }
+  }
 }
 </script>
 
@@ -35,5 +64,9 @@ export default class SideVar extends Vue{
 #side-var{
     margin-right: 100px;
     text-align: left;
+}
+a {
+  text-decoration-line: none;
+  color : black;
 }
 </style>

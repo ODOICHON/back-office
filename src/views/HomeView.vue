@@ -1,7 +1,7 @@
 <template>
   <div class="row g-1">
     <board-list :boards="boards"></board-list>
-    <side-var></side-var>
+    <side-var :boards="boards"></side-var>
     <!-- TO-DO 다음 페이지 데이터 입히기-->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
