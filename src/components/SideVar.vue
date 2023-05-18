@@ -5,16 +5,16 @@
             <div class="p-4">
                 <h4 class="fst-italic">Category</h4>
                 <ol class="list-unstyled mb-0">
-                    <li><a href="#">WEB</a></li>
-                    <li><a href="#">SERVER</a></li>
-                    <li><a href="#">INFRA</a></li>
+                    <li><router-link :to="`/`" @click="getBoardsWithCategory(category[0])">{{ category[0] }}</router-link></li>
+                    <li><router-link :to="`/`" @click="getBoardsWithCategory(category[1])">{{ category[1] }}</router-link></li>
+                    <li><router-link :to="`/`" @click="getBoardsWithCategory(category[2])">{{ category[2] }}</router-link></li>
                 </ol>
             </div>
             <!-- 금주의 인기 게시물 리스트 ( TOP 3 ) -->
             <div class="p-4">
                 <h4 class="fst-italic">HOT POSTS</h4>
-                <ol class="list-unstyled" v-for="board in boards" :key="board.boardId">
-                    <li><router-link :to="`/boards/${board.boardId}`" @click="fetchItem(board.boardId)">{{ board.title }}</router-link></li>
+                <ol class="list-unstyled" v-for="board, idx in boards" :key="board.boardId">
+                    <li><router-link :to="`/boards/${board.boardId}`" @click="getBoard(board.boardId)" v-if="idx < 3">{{ board.title }}</router-link></li>
                 </ol>
             </div>
         </div>
@@ -26,7 +26,6 @@ import { Vue } from 'vue-class-component';
 import { useStore } from 'vuex';
 import { computed, onMounted, PropType, ref } from 'vue';
 import BoardType, { BoardData } from '@/types/BoardType';
-import { getBoards } from '@/api/AxiosService';
 
 export default {
     name: 'SideVar',
@@ -34,27 +33,24 @@ export default {
     boards: {
         required: true,
         type: Array as PropType<BoardData[]> ,
-        // type: Array as PropType<BoardType[]>
     },
     },
     setup() {
     const store = useStore();
-    const selectedItem = ref<BoardType | null>(null);
+    const category = ['TREND', 'REVIEW', 'DAILY'];
 
-    const fetchItem = async (id: number) => {
-      try {
-        const response = await getBoards(id);
-        selectedItem.value = response.data.data;
-        console.log("click detail");
-        store.state.boards.boards = response.data.data;
-      } catch (error) {
-        console.error(error);
-      }
+    const getBoard = (id: number) => {
+        store.dispatch('getBoard', id);
+    };
+
+    const getBoardsWithCategory = (name : string) => {
+        store.dispatch('getBoardsWithCategory', name);
     };
 
     return {
-        selectedItem,
-        fetchItem
+        getBoard,
+        getBoardsWithCategory,
+        category,
     }
   }
 }
@@ -62,7 +58,7 @@ export default {
 
 <style scoped>
 #side-var{
-    margin-right: 100px;
+    margin-left: 100px;
     text-align: left;
 }
 a {
