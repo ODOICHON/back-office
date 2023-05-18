@@ -25,6 +25,7 @@ export interface BoardPageResponse { // 게시글 페이징 처리 시, 사용
 export interface BoardPageType {
     content : BoardData[];
     totalPages : number,
+    totalElements : number,
 }
 
 export interface BoardData {
