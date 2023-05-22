@@ -1,4 +1,4 @@
-import { getBoards, getBoard, getBoardsWithCategory } from '@/api/AxiosService';
+import { getBoards, getBoard, getBoardsWithCategory } from '@/api/Board';
 import { Module } from 'vuex';
 import BoardType, { BoardData, BoardPageType } from '@/types/BoardType';
 
