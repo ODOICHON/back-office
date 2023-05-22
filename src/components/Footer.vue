@@ -1,0 +1,102 @@
+<template>
+<footer class="text-center text-lg-start bg-light text-muted">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+      <span>Get connected with us on social networks:</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="https://www.facebook.com/profile.php?id=100090776230063&mibextid=LQQJ4d" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://duaily.net" class="me-4 text-reset">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="https://www.instagram.com/jm_house_official" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://github.com/ODOICHON" class="me-4 text-reset">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>오도리
+          </h6>
+          <p>
+            오도리는 오도이촌 실현을 위한 서비스 제공 팀입니다.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Service
+          </h6>
+          <p>
+            <a href="https://duaily.net" class="text-reset">Community</a>
+          </p>
+          <p>
+            <a href="/" class="text-reset">Tech</a>
+          </p>
+          <p>
+            <a href="/about" class="text-reset">Help</a>
+          </p>
+          
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> Seoul, Korea</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            5do2chonri@gmail.com
+          </p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2022 Copyright:
+    <a class="text-reset fw-bold" href="https://dauily.net/">주말의집</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+</template>
+
+<script lang="ts">
+import { Vue } from 'vue-class-component';
+
+export default class BaseFooter extends Vue {
+
+}
+</script>
+
+<style scoped>
+</style>
