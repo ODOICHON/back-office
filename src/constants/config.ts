@@ -1,3 +1,4 @@
-export const API_URLS_BORAD = {
-    board : '/api/v1/boards'
+export const API_URLS = {
+    record : '/api/v1/record',
+    user: '/api/v1/users'
 };
