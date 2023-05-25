@@ -63,17 +63,17 @@ const handleSubmit = (event) => {
     console.log('contentElement', contentElement); // Check the content element
     const markdownContent = contentElement?.innerHTML;
     console.log('markdownContent', markdownContent); // Check the markdown content
-    const createBoard: RecordCreateReq = {
+    const createRecord: RecordCreateReq = {
       title: title.value,
       content: markdownContent,
       part: selectedPart.value,
       category: selectedCategory.value,
       type: selectedType.value,
     }
-    store.dispatch('createBoard', createBoard).then(
+    store.dispatch('createRecord', createRecord).then(
       () => {
-        const boardId = store.state.boards.boardId;
-        router.push({ name: 'BoardDetail', params: { id: boardId } });
+        const recordId = store.state.records.recordId;
+        router.push({ name: 'RecordDetail', params: { id: recordId } });
       }
     );
   } else {
