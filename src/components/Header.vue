@@ -14,17 +14,38 @@
         </ul>
 
         <div class="col-md-3 text-end" id="btn-container">
-            <button type="button" class="btn btn-outline-primary me-2">마이페이지</button>
-            <button type="button" class="btn btn-primary">로그아웃</button>
+            <button type="button" class="btn btn-outline-primary me-2" v-if="loggedIn">마이페이지</button>
+            <button type="button" class="btn btn-primary" @click="moveLogin" v-if="!loggedIn">로그인</button>
+            <button type="button" class="btn btn-primary" @click="moveLogOut" v-else>로그아웃</button>
         </div>
     </header>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
+import { useRouter } from 'vue-router';
+import { authComputed } from '@/store/helper';
+import store from '@/store';
 
-export default class BaseHeader extends Vue {
+export default {
+    computed: {
+        ...authComputed,
+    },
+    setup() {
+        const router = useRouter();
 
+        const moveLogin = () => {
+            router.push({
+                path: '/login',
+            });
+        }
+        const moveLogOut = () => {
+            store.dispatch('logout');
+        }
+        return {
+            moveLogin,
+            moveLogOut
+        }
+    },
 }
 </script>
 
