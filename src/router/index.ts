@@ -31,15 +31,21 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/boards/:id',
-    name: 'BoardDetail',
-    component: () => import('../components/BoardDetail.vue'),
+    path: '/records/:id',
+    name: 'RecordDetail',
+    component: () => import('../components/RecordDetail.vue'),
     // props: true,
   },
   {
-    path: '/boards/write',
-    name: 'BoardCreate',
-    component: () => import('../views/BoardCreate.vue'),
+    path: '/records/write',
+    name: 'RecordCreate',
+    component: () => import('../views/RecordCreate.vue'),
+    // props: true,
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/LogInView.vue'),
     // props: true,
   },
 ]
