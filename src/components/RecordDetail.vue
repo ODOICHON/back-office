@@ -53,7 +53,7 @@ article {
     padding-right: 70px;
     margin-bottom: 40px;
     margin-top: 40px;
-    height: 500px;
+    /* height: 500px; */
 }
 </style>
   
