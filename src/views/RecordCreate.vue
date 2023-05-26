@@ -37,6 +37,7 @@ import { RecordCreateReq } from '@/types/RecordType';
 import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { defineComponent, onMounted, ref, defineEmits } from 'vue';
+import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
 export default defineComponent({
@@ -50,11 +51,12 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const store = useStore();
+    const router = useRouter();
     const editor = ref<Editor>();
 
     onMounted(() => {
       editor.value = new Editor({
-        el: document.querySelector('#editor') as HTMLElement ,
+        el: document.querySelector('#editor') as HTMLElement,
         height: '500px',
         initialEditType: 'markdown',
         previewStyle: 'vertical',
@@ -67,29 +69,31 @@ export default defineComponent({
     });
 
     const title = ref('');
-    const parts = [
+
+    const parts: { id: string; name: string }[] = [
       { id: 'web', name: 'WEB' },
       { id: 'server', name: 'SERVER' },
       { id: 'infra', name: 'INFRA' },
       { id: 'all', name: 'ALL' },
     ];
-    const selectedPart = ref(parts.find(part => part.name === 'WEB').id);
-    const types = [
+    const selectedPart = ref(parts.find((part) => part.name === 'WEB')?.id);
+
+    const types: { id: string; name: string }[] = [
       { id: 'odori', name: 'odori' },
       { id: 'retro', name: 'retro' },
       { id: 'tech', name: 'tech' },
     ];
-    const selectedType = ref(types.find(type => type.name === 'tech').id);
+    const selectedType = ref(types.find((type) => type.name === 'tech')?.id);
 
-    const categories = [
+    const categories: { id: string; name: string }[] = [
       { id: 'disaster', name: 'disaster' },
       { id: 'issue', name: 'issue' },
       { id: 'new_tech', name: 'new_tech' },
       { id: 'architecture', name: 'architecture' },
     ];
-    const selectedCategory = ref(categories.find(category => category.name === 'disaster').id);
+    const selectedCategory = ref(categories.find((category) => category.name === 'disaster')?.id);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: Event) => {
       event.preventDefault();
 
       const result = confirm('리뷰 신청하시겠습니까?');
@@ -100,9 +104,9 @@ export default defineComponent({
         const createRecord: RecordCreateReq = {
           title: title.value,
           content: markdownContent!,
-          part: selectedPart.value,
-          category: selectedCategory.value,
-          type: selectedType.value,
+          part: selectedPart.value!,
+          category: selectedCategory.value!,
+          type: selectedType.value!,
         };
         store.dispatch('createRecord', createRecord).then(() => {
           const recordId = store.state.records.recordId;
