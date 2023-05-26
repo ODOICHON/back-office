@@ -41,6 +41,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { defineComponent, onMounted, ref, defineEmits, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import {categories, parts, types} from '@/constants/selectBox';
 
 export default defineComponent({
   name: 'RecordCreate',
@@ -58,28 +59,8 @@ export default defineComponent({
     const fetchData = computed(() => store.state.records.records);
     
     const title = ref('');
-
-    const parts: { id: string; name: string }[] = [
-      { id: 'web', name: 'WEB' },
-      { id: 'server', name: 'SERVER' },
-      { id: 'infra', name: 'INFRA' },
-      { id: 'all', name: 'ALL' },
-    ];
     const selectedPart = ref(parts.find((part) => part.name === 'WEB')?.id);
-
-    const types: { id: string; name: string }[] = [
-      { id: 'odori', name: '오도리' },
-      { id: 'retro', name: '회고' },
-      { id: 'tech', name: '기술적용' },
-    ];
     const selectedType = ref(types.find((type) => type.name === '기술적용')?.id);
-
-    const categories: { id: string; name: string }[] = [
-      { id: 'disaster', name: '장애관리' },
-      { id: 'issue', name: '이슈관리' },
-      { id: 'new_tech', name: '신기술' },
-      { id: 'architecture', name: '설계' },
-    ];
     const selectedCategory = ref(categories.find((category) => category.name === '장애관리')?.id);
 
     onMounted(() => {
@@ -102,7 +83,6 @@ export default defineComponent({
         },
       });
     });
-
 
     const handleSubmit = (event: Event) => {
       event.preventDefault();
