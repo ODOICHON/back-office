@@ -22,8 +22,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import store from '@/store';
-import router from '@/router';
 import { authComputed } from '@/store/helper';
+import { useRouter } from 'vue-router';
 
 interface FormValues {
     email: string;
@@ -51,12 +51,21 @@ export default defineComponent({
 
             store.dispatch('login', loginReq).then(
                 () => {
-                    router.push({name: 'home'});
+                    this.router.push({name: 'home'});
                 }
-            );
+            ).catch(() => {
+                this.email = '';
+                this.password = '';
+            });
 
         },
     },
+    setup(){
+        const router = useRouter();
+        return {
+            router
+        }
+    }
 });
 </script>
   
