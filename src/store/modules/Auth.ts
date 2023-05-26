@@ -1,6 +1,7 @@
 // store/modules/auth.ts
 import { Module } from 'vuex';
 import { login, logout } from '@/api/User';
+import axios from 'axios';
 
 interface AuthState {
   isLoggedIn: boolean;
@@ -18,7 +19,13 @@ const authModule: Module<AuthState, any> = {
     },
     setAccessToken(state, access_token: string) {
         state.access_token = access_token;
+        localStorage.setItem('user', JSON.stringify(access_token));
+        // axios.defaults.headers.common['Authorization'] = `${access_token}`;
       },
+    removeAccessToken(state) {
+      state.access_token = '';
+      localStorage.removeItem('user');
+    }
   },
   actions: {
     async login({ commit }, loginReq) {
@@ -27,7 +34,7 @@ const authModule: Module<AuthState, any> = {
         commit('setLoggedIn', true);
         commit('setAccessToken', response.data.data.access_token);
       } catch (error) {
-        console.error('로그인에 실패하셨습니다.');
+        alert('로그인에 실패하셨습니다.'); // To-Do
       }
     },
     async logout({ commit, state }) {
@@ -38,7 +45,7 @@ const authModule: Module<AuthState, any> = {
 
         await logout(headers);
         commit('setLoggedIn', false);
-        commit('setAccessToken', '');
+        commit('removeAccessToken');
       } catch (error) {
         console.error('로그아웃에 실패하셨습니다.');
       }

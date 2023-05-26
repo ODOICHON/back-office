@@ -8,9 +8,9 @@
             </a>
         </div>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><router-link style=text-decoration:none;color:black; to="/intro">오도리</router-link></li>
-            <li><router-link style=text-decoration:none;color:black; to="/skill">기술적용</router-link></li>
-            <li><router-link style=text-decoration:none;color:black; to="/review">회고</router-link></li>
+            <li><router-link style=text-decoration:none;color:black; to="/odori">오도리</router-link></li>
+            <li><router-link style=text-decoration:none;color:black; to="/tech">기술적용</router-link></li>
+            <li><router-link style=text-decoration:none;color:black; to="/retro">회고</router-link></li>
         </ul>
 
         <div class="col-md-3 text-end" id="btn-container">

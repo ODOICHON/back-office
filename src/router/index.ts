@@ -11,18 +11,18 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView
   },
   {
-    path: '/intro',
-    name: 'intro',
+    path: '/odori',
+    name: 'odori',
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/skill',
-    name: 'skill',
+    path: '/tech',
+    name: 'tech',
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
-    path: '/review',
-    name: 'review',
+    path: '/retro',
+    name: 'retro',
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
@@ -39,6 +39,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/records/write',
     name: 'RecordCreate',
+    meta: {requiresAuth: true},
     component: () => import('../views/RecordCreate.vue'),
     // props: true,
   },
@@ -54,5 +55,12 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem('user');
+  if(to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+      next('/')
+  }
+  next() // 권한이 필요 없는 페이지
+});
 
 export default router
