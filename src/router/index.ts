@@ -44,6 +44,12 @@ const routes: Array<RouteRecordRaw> = [
     // props: true,
   },
   {
+    path: '/records/update/:id',
+    name: 'RecordUpdate',
+    meta: {requiresAuth: true},
+    component: () => import('../views/RecordCreate.vue'),
+  },
+  {
     path: '/login',
     name: 'Login',
     component: () => import('../views/LogInView.vue'),

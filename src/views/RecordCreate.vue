@@ -13,19 +13,21 @@
       <div class="col">
         <label for="type" class="form-label">TYPE 선택:</label>
         <select id="type" class="form-select" v-model="selectedType">
-          <option v-for="t in types" :key="t.id" :value="t.name">{{ t.name }}</option>
+          <option v-for="t in types" :key="t.id" :value="t.id">{{ t.name }}</option>
         </select>
       </div>
       <div class="col" v-if="selectedType === 'tech'">
         <label for="category" class="form-label">CATEGORY 선택:</label>
         <select id="category" class="form-select" v-model="selectedCategory">
-          <option v-for="category in categories" :key="category.id" :value="category.name">{{ category.name }}</option>
+          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
       </div>
     </div>
     <div id="editor" ref="editor" class="row"></div>
     <div class="col text-end" id="btn-container">
-      <button type="submit" class="btn btn-outline-primary me-2">리뷰 신청</button>
+      <button type="submit" class="btn btn-outline-primary me-2" v-if="fetchData==0">리뷰 신청</button>
+      <button type="submit" class="btn btn-outline-primary me-2" v-if="fetchData.record_id > 1">저장</button>
+
     </div>
   </form>
 </template>
@@ -33,10 +35,10 @@
 <script lang="ts">
 import router from '@/router';
 import { authComputed } from '@/store/helper';
-import { RecordCreateReq } from '@/types/RecordType';
+import { RecordCreateReq, RecordUpdateReq } from '@/types/RecordType';
 import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { defineComponent, onMounted, ref, defineEmits } from 'vue';
+import { defineComponent, onMounted, ref, defineEmits, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
@@ -53,21 +55,8 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
     const editor = ref<Editor>();
-
-    onMounted(() => {
-      editor.value = new Editor({
-        el: document.querySelector('#editor') as HTMLElement,
-        height: '500px',
-        initialEditType: 'markdown',
-        previewStyle: 'vertical',
-        events: {
-          change: () => {
-            emit('update:modelValue', editor.value?.getMarkdown());
-          },
-        },
-      });
-    });
-
+    const fetchData = computed(() => store.state.records.records);
+    
     const title = ref('');
 
     const parts: { id: string; name: string }[] = [
@@ -79,24 +68,61 @@ export default defineComponent({
     const selectedPart = ref(parts.find((part) => part.name === 'WEB')?.id);
 
     const types: { id: string; name: string }[] = [
-      { id: 'odori', name: 'odori' },
-      { id: 'retro', name: 'retro' },
-      { id: 'tech', name: 'tech' },
+      { id: 'odori', name: '오도리' },
+      { id: 'retro', name: '회고' },
+      { id: 'tech', name: '기술적용' },
     ];
-    const selectedType = ref(types.find((type) => type.name === 'tech')?.id);
+    const selectedType = ref(types.find((type) => type.name === '기술적용')?.id);
 
     const categories: { id: string; name: string }[] = [
-      { id: 'disaster', name: 'disaster' },
-      { id: 'issue', name: 'issue' },
-      { id: 'new_tech', name: 'new_tech' },
-      { id: 'architecture', name: 'architecture' },
+      { id: 'disaster', name: '장애관리' },
+      { id: 'issue', name: '이슈관리' },
+      { id: 'new_tech', name: '신기술' },
+      { id: 'architecture', name: '설계' },
     ];
-    const selectedCategory = ref(categories.find((category) => category.name === 'disaster')?.id);
+    const selectedCategory = ref(categories.find((category) => category.name === '장애관리')?.id);
+
+    onMounted(() => {
+      if(fetchData.value.record_id > 1) {
+        title.value = fetchData.value.title;
+        selectedPart.value = fetchData.value.part;
+        selectedCategory.value = fetchData.value.category;
+        selectedType.value = fetchData.value.type;
+      }
+      editor.value = new Editor({
+        el: document.querySelector('#editor') as HTMLElement,
+        height: '500px',
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
+        initialValue: fetchData.value.content as string,
+        events: {
+          change: () => {
+            emit('update:modelValue', editor.value?.getMarkdown());
+          },
+        },
+      });
+    });
+
 
     const handleSubmit = (event: Event) => {
       event.preventDefault();
 
-      const result = confirm('리뷰 신청하시겠습니까?');
+      if(fetchData.value.record_id > 1) {
+       const result = confirm('게시글 수정사항을 저장하시겠습니까?');
+       if(result) {
+        const markdownContent = editor.value?.getMarkdown();
+
+        const updateRecord: RecordUpdateReq = {
+          title: title.value,
+          content: markdownContent!,
+        };
+        store.dispatch('updateRecord', updateRecord).then(() => {
+          const recordId = store.state.records.recordId;
+          router.push({ name: 'RecordDetail', params: { id: recordId } });
+        });
+       }
+      } else {
+        const result = confirm('리뷰 신청하시겠습니까?');
       if (result) {
         const markdownContent = editor.value?.getMarkdown();
         // console.log('markdownContent', markdownContent);
@@ -115,6 +141,7 @@ export default defineComponent({
       } else {
         alert('리뷰 신청을 취소하셨습니다.');
       }
+      }
     };
 
     return {
@@ -126,6 +153,7 @@ export default defineComponent({
       categories,
       selectedCategory,
       handleSubmit,
+      fetchData,
     };
   },
 });

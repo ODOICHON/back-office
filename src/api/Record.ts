@@ -1,4 +1,4 @@
-import { RecordResponse, RecordPageResponse, RecordCreateReq, RecordCreateResponse, RecordHotResponse } from "@/types/RecordType";
+import { RecordResponse, RecordPageResponse, RecordCreateReq, RecordCreateResponse, RecordHotResponse, RecordUpdateReq } from "@/types/RecordType";
 import { AxiosPromise } from "axios";
 import { restApi } from "./AxiosService";
 import { API_URLS } from "@/constants/config";
@@ -25,11 +25,11 @@ export function createRecord(recordReq : RecordCreateReq, headers: { [key: strin
 }
 
 // 게시글 수정
-export function updateRecord(recordReq: RecordCreateReq, id : number) : AxiosPromise<number> {
-    return restApi.put(`${API_URLS.record}/${id}`, recordReq);
+export function updateRecord(recordReq: RecordUpdateReq, id : number, headers: { [key: string]: string }) : AxiosPromise<RecordCreateResponse> {
+    return restApi.put(`${API_URLS.record}/${id}`, recordReq, {headers});
 }
 
 // 게시글 삭제
-export function deleteRecord(id: number) : AxiosPromise<RecordResponse> {
-    return restApi.delete(`${API_URLS.record}/${id}`);
+export function deleteRecord(id: number, headers: { [key: string]: string }) : AxiosPromise<RecordResponse> {
+    return restApi.delete(`${API_URLS.record}/${id}`, {headers});
 }

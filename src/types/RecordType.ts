@@ -49,6 +49,11 @@ export interface RecordCreateReq { // 게시글 생성 시, 보내는 요청 DTO
     type: string;
 }
 
+export interface RecordUpdateReq {
+    title: string;
+    content: string;
+}
+
 export interface RecordHotResponse {
     data : RecordHotData;
 }
