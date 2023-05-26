@@ -1,9 +1,9 @@
 <template>
     <article class="blog-post">
-        <p class="blog-post-meta">{{ selectedItem?.create_at }} by {{ selectedItem?.nick_name }}   <strong class="d-inline-block mb-2 text-primary"> {{ selectedItem?.part }}</strong></p> 
-        <div class="btn-container">
-            <p @click="moveToUpdate(selectedItem.record_id)">수정</p><p @click="deleteItem(selectedItem.record_id)">삭제</p>
+        <div class="btn-container text-end">
+            <button class="btn" @click="moveToUpdate(selectedItem.record_id)">수정</button> <button class="btn btn-danger" @click="deleteItem(selectedItem.record_id)">삭제</button>
         </div>
+        <p class="blog-post-meta">{{ selectedItem?.create_at }} by {{ selectedItem?.nick_name }}   <strong class="d-inline-block mb-2 text-primary"> {{ selectedItem?.part }}</strong></p> 
         <h2 class="blog-post-title mb-1">{{ selectedItem?.title }}</h2>
         
         <div id="viewer" class="overflow-hidden flex-md-row mb-4 h-md-250 position-relative"> </div>
