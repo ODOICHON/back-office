@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import store from '@/store';
 /*
   해당 파일은 라우팅을 위한 정보를 담고 있다.
   url path와 컴포넌트를 매핑시켜준다.
@@ -55,6 +56,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/LogInView.vue'),
     // props: true,
   },
+  {
+    path: '/mypage',
+    name: 'MyPage',
+    meta: {requiresAuth: true},
+    component: () => import('../views/MyPageView.vue'),
+    // props: true,
+  },
 ]
 
 const router = createRouter({
@@ -64,7 +72,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user');
   if(to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
-      next('/')
+    next('/')
   }
   next() // 권한이 필요 없는 페이지
 });
