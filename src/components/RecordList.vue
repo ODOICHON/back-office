@@ -32,7 +32,8 @@ export default {
             required: true,
             type: Array as PropType<RecordType[]>,
         }
-    }, setup() {
+    },
+    setup() {
         const store = useStore();
         const getRecord = (id: number) => {
             store.dispatch('getRecord', id);
