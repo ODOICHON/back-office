@@ -11,7 +11,10 @@ const store = createStore({
   getters : {
     loggedIn(state) {
       return state.auth.isLoggedIn
+    },
+    reviewFilter(state) {
+      return state.reocrds.myPageFilter
     }
-  }
+  },
 })
 export default store;
