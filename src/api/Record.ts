@@ -33,3 +33,27 @@ export function updateRecord(recordReq: RecordUpdateReq, id : number, headers: {
 export function deleteRecord(id: number, headers: { [key: string]: string }) : AxiosPromise<RecordResponse> {
     return restApi.delete(`${API_URLS.record}/${id}`, {headers});
 }
+
+// 마이페이지 내가 작성한 모든 게시글 조회
+// /reviewee?status=approve&page=0
+export function getRecordListMine(page : number, headers: { [key: string]: string }) : AxiosPromise<RecordPageResponse> {
+    return restApi.get(`${API_URLS.record}/reviewee?status=approve&page=${page}`, {headers});
+}
+
+// 마이페이지 내가 리뷰한 모든 게시글 조회
+// /reviewer?status=approve&page=0
+export function getRecordListReviewed(page : number, headers: { [key: string]: string }) : AxiosPromise<RecordPageResponse> {
+    return restApi.get(`${API_URLS.record}/reviewer?status=approve&page=${page}`, {headers});
+}
+
+// 마이페이지 내가 리뷰해야 할 모든 게시글 조회
+// /reviewer?status=wait&page=0
+export function getRecordListWait(page : number, headers: { [key: string]: string }) : AxiosPromise<RecordPageResponse> {
+    return restApi.get(`${API_URLS.record}/reviewer?status=wait&page=${page}`, {headers});
+}
+
+// 마이페이지 내가 리뷰 신청한 모든 게시글 조회
+// /reviewee?status=wait&page=0
+export function getRecordListApply(page : number, headers: { [key: string]: string }) : AxiosPromise<RecordPageResponse> {
+    return restApi.get(`${API_URLS.record}/reviewee?status=wait&page=${page}`, {headers});
+}
