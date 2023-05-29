@@ -1,4 +1,6 @@
-export const API_URLS = {
-    record : '/api/v1/record',
-    user: '/api/v1/users'
+export const BASE_URL : string = 'https://duaily.net/api'; // 기본 요청 URL 정의
+
+export const API_URLS = { // 도메인에 따른 key-value 정의
+    record : `${BASE_URL}/v1/record`,
+    user: `${BASE_URL}/v1/users`
 };
