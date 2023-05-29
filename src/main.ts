@@ -1,39 +1,42 @@
-// import { createApp } from 'vue'
-// import App from './App.vue'
-// import router from './router'
-// import store from './store'
-// const app = createApp(App);
-
-// app.use(store).use(router).mount('#app')
-
-// app.config.globalProperties.$store = store;
 
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import axios, { AxiosError } from 'axios';
+import { restApi } from './api/AxiosService';
 
 const app = createApp(App);
 
 // 로그인 상태를 유지하기 위한 초기화 로직
 const userString = localStorage.getItem('user');
 if (userString) {
-  const userData = JSON.parse(userString);
-  store.commit('setAccessToken', userData);
+  store.commit('setAccessToken', userString);
   store.commit('setLoggedIn', true);
+}
+export interface ErrorResponse {
+    code: string;
+    message : string;
 }
 
 // 401 에러 처리를 위한 axios 인터셉터
-axios.interceptors.response.use(
+restApi.interceptors.response.use(
   response => response,
   (error: AxiosError) => {
-    console.log(error);
 
     if (error.response?.status === 401) {
-      store.dispatch('logout');
-    }
+      const data = error.response.data as ErrorResponse;
+      if(data.code === 'J0002') { // 토큰 만료
+          // localStorage.removeItem('user')!;
+          const token = localStorage.getItem('user')?.split(" ")[1];
+          console.log(token);
+          store.dispatch('reissue', token);
 
+      } else if(data.code === 'J0004') { // 잘못된 토큰
+        alert('글로벌하게 정의한 오류 처리');
+
+      }
+    }
     return Promise.reject(error);
   }
 );
