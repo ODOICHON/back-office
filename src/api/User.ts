@@ -6,7 +6,7 @@ import { ApplicationResponse } from "@/types/Common";
 
 // 사용자 로그인
 export function login(loginReq: LoginReq) : AxiosPromise<UserResponse> {
-    return restApi.post(`${API_URLS.user}/sign-in`, loginReq);
+    return restApi.post(`${API_URLS.user}/sign-in`, loginReq, {withCredentials:true});
 }
 
 // 사용자 로그아웃
@@ -15,4 +15,9 @@ interface Headers {
   }
 export function logout(headers : Headers) : AxiosPromise<ApplicationResponse> {
     return restApi.post(`${API_URLS.user}/logout`, null, {headers});
+}
+
+// 토큰 재발급
+export function reissue(access_token : string) : AxiosPromise<UserResponse>{
+    return restApi.post(`${API_URLS.user}/reissue`, {access_token : access_token}, {withCredentials:true});
 }
