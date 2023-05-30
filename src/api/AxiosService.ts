@@ -5,3 +5,4 @@ export const restApi = axios.create({
     baseURL : process.env.BASE_URL, // /api로 시작하면 BASE_URL로 포워딩 되도록 proxy 등록.
     timeout: 50000
 })
+restApi.defaults.withCredentials = true; // 쿠키 자동 등록 설정

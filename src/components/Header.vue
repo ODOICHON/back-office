@@ -8,23 +8,50 @@
             </a>
         </div>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><router-link style=text-decoration:none;color:black; to="/intro">오도리</router-link></li>
-            <li><router-link style=text-decoration:none;color:black; to="/skill">기술적용</router-link></li>
-            <li><router-link style=text-decoration:none;color:black; to="/review">회고</router-link></li>
+            <li><router-link style=text-decoration:none;color:black; to="/odori">오도리</router-link></li>
+            <li><router-link style=text-decoration:none;color:black; to="/tech">기술적용</router-link></li>
+            <li><router-link style=text-decoration:none;color:black; to="/retro">회고</router-link></li>
         </ul>
 
         <div class="col-md-3 text-end" id="btn-container">
-            <button type="button" class="btn btn-outline-primary me-2">마이페이지</button>
-            <button type="button" class="btn btn-primary">로그아웃</button>
+            <button type="button" class="btn btn-outline-primary me-2" v-if="loggedIn" @click="moveMypage">마이페이지</button>
+            <button type="button" class="btn btn-primary" @click="moveLogin" v-if="!loggedIn">로그인</button>
+            <button type="button" class="btn btn-primary" @click="moveLogOut" v-else>로그아웃</button>
         </div>
     </header>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component'
+import { useRouter } from 'vue-router';
+import { authComputed } from '@/store/helper';
+import store from '@/store';
 
-export default class BaseHeader extends Vue {
+export default {
+    computed: {
+        ...authComputed,
+    },
+    setup() {
+        const router = useRouter();
 
+        const moveLogin = () => {
+            router.push({
+                path: '/login',
+            });
+        }
+        const moveLogOut = () => {
+            store.dispatch('logout');
+        }
+        const moveMypage = () => {
+            router.push({
+                path: '/mypage',
+            });
+        }
+        return {
+            moveLogin,
+            moveLogOut,
+            moveMypage
+        }
+    },
 }
 </script>
 
