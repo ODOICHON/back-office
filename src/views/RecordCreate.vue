@@ -25,8 +25,8 @@
     </div>
     <div id="editor" ref="editor" class="row"></div>
     <div class="col text-end" id="btn-container">
-      <button type="submit" class="btn btn-outline-primary me-2" v-if="fetchData==0">리뷰 신청</button>
       <button type="submit" class="btn btn-outline-primary me-2" v-if="fetchData.record_id > 1">저장</button>
+      <button type="submit" class="btn btn-outline-primary me-2" v-else>리뷰 신청</button>
 
     </div>
   </form>
