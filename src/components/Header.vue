@@ -3,9 +3,9 @@
         class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
         <div class="col-md-3 mb-2 mb-md-0" id="logo-btn">
-            <a href="/tech" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <router-link to="/" class="d-inline-flex link-body-emphasis text-decoration-none">
                 <img alt="logo-img" src="../assets/logo.svg">
-            </a>
+            </router-link>
         </div>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><router-link style=text-decoration:none;color:black; to="/odori">오도리</router-link></li>
