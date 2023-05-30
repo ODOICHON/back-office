@@ -1,0 +1,71 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+env:
+  PROJECT_NAME: duaily-tech-client
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@master
+        
+      - name: Check Node v # Node v 확인
+        run: node -v
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test:unit
+
+      - name: Build
+        run: npm run build
+        
+        
+      - name: zip create # zip 파일을 만듭니다
+        run: zip -r ./$GITHUB_SHA.zip ./dist appspec.yml
+        shell: bash
+        
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3 # S3에 파일 업로드
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://${{ secrets.S3_BUCKET_NAME }}/$PROJECT_NAME/$GITHUB_SHA.zip
+
+      - name: Code Deploy # CodeDeploy 배포
+        run: |
+          aws deploy create-deployment \
+          --application-name duaily-deploy \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --deployment-group-name duaily-deploy-group-tech-client \
+          --s3-location bucket=${{ secrets.S3_BUCKET_NAME }},bundleType=zip,key=$PROJECT_NAME/$GITHUB_SHA.zip
+
+#       - name: action-slack
+#         uses: 8398a7/action-slack@v3
+#         with:
+#           status: ${{ job.status }}
+#           author_name: Github Action Test # default: 8398a7@action-slack
+#           fields: repo,message,commit,action,eventName,ref,workflow,job,took
+#         env:
+#           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_PROD }} # required
+#         if: always() # Pick up events even if the job fails or is canceled.
