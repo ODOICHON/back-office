@@ -1,11 +1,6 @@
 module.exports = {
   devServer: {
-    proxy: {
-      '/api': {
-        target: 'https://duaily.net',
-        changeOrigin: true
-      }
-    }
+    port: 3000
   },
   lintOnSave: false,
   transpileDependencies: true,

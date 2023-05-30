@@ -1,5 +1,7 @@
 export interface UserResponse {
-    data : SignInResponse
+    code : string;
+    message :string;
+    data : SignInResponse;
 }
 
 export interface SignInResponse {

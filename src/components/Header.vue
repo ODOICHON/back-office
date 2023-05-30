@@ -14,7 +14,7 @@
         </ul>
 
         <div class="col-md-3 text-end" id="btn-container">
-            <button type="button" class="btn btn-outline-primary me-2" v-if="loggedIn">마이페이지</button>
+            <button type="button" class="btn btn-outline-primary me-2" v-if="loggedIn" @click="moveMypage">마이페이지</button>
             <button type="button" class="btn btn-primary" @click="moveLogin" v-if="!loggedIn">로그인</button>
             <button type="button" class="btn btn-primary" @click="moveLogOut" v-else>로그아웃</button>
         </div>
@@ -41,9 +41,15 @@ export default {
         const moveLogOut = () => {
             store.dispatch('logout');
         }
+        const moveMypage = () => {
+            router.push({
+                path: '/mypage',
+            });
+        }
         return {
             moveLogin,
-            moveLogOut
+            moveLogOut,
+            moveMypage
         }
     },
 }
