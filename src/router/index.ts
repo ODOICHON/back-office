@@ -63,16 +63,27 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/MyPageView.vue'),
     // props: true,
   },
+  { 
+    path: "/404",
+    name: "notFound",
+    component: () => import('../views/NotFound.vue'),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/404",
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
+
+// router guard : 이동 전에 전역으로 관리하는 처리
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('user');
-  if(to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
-    next('/')
+  if(to.matched.some(record => record.meta.requiresAuth) && !loggedIn) { // 로그인 상태이어야 하며, 로그인 상태인지 확인
+    next('/') // 아니면 메인 페이지로 이동
   }
   next() // 권한이 필요 없는 페이지
 });
