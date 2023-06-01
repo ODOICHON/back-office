@@ -51,7 +51,11 @@ export default defineComponent({
 
             store.dispatch('login', loginReq).then(
                 () => {
-                    this.router.push({name: 'home'});
+                    store.dispatch('getUserInfo').then(
+                        () => {
+                            this.router.push({name: 'home'});
+                        }
+                    )
                 }
             ).catch(() => {
                 this.email = '';
