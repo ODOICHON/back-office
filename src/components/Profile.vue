@@ -5,17 +5,32 @@
                 <img src="@/assets/logo.png" />
             </div>
             <div class="p-4">
-                <h4 class="fst-bold">우릉비님 | SERVER</h4>
+                <h4 class="fst-bold">{{ currentUser }} | SERVER</h4>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
+import { computed, onMounted } from 'vue'
+import store from '@/store'
 export default {
     setup () {
+        const currentUser = computed(() => store.state.auth.nick_name);
+
+        const getNickName = () => {
+            store.dispatch('getUserInfo');
+        };
         
-        return {}
+        onMounted(() => {
+            getNickName();
+        });
+
+        
+        return {
+            getNickName,
+            currentUser
+        };
     }
 }
 </script>

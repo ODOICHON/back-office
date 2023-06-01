@@ -25,6 +25,7 @@ restApi.interceptors.response.use(
                 if (data.code === 'J0002') { // 토큰 만료
                     refresh = true;
                     const token = localStorage.getItem('user')?.split(" ")[1];
+                    localStorage.removeItem('user');
                     store.dispatch('reissue', token);
 
                 } else if (data.code === 'J0004') { // 잘못된 토큰

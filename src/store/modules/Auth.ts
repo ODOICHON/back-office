@@ -1,18 +1,18 @@
 import { Module } from 'vuex';
-import { login, logout } from '@/api/User';
+import { getUserInfo, login, logout } from '@/api/User';
 import { reissue } from '../../api/User';
 
 interface AuthState {
   isLoggedIn: boolean;
   access_token: string;
-  userInfo: string;
+  nick_name: string;
 }
 
 const authModule: Module<AuthState, any> = {
   state: {
     isLoggedIn: false,
     access_token: '',
-    userInfo: '',
+    nick_name: '',
   },
   getters: {
     getIsLoggedIn(state) {
@@ -21,8 +21,8 @@ const authModule: Module<AuthState, any> = {
     getAccessToken(state) {
       return state.access_token;
     },
-    getUserInfo(state) {
-      return state.userInfo;
+    getNickName(state) {
+      return state.nick_name;
     }
   },
   mutations: {
@@ -32,8 +32,8 @@ const authModule: Module<AuthState, any> = {
     setAccessToken(state, access_token: string) {
       state.access_token = access_token;
     },
-    setUserInfo(state, userInfo: string) {
-      state.userInfo = userInfo;
+    setNickName(state, nick_name: string) {
+      state.nick_name = nick_name;
     }
   },
   actions: {
@@ -89,6 +89,7 @@ const authModule: Module<AuthState, any> = {
         if (response.data.code === 'SUCCESS') {
           commit('setAccessToken', response.data.data.access_token);
           commit('setLoggedIn', true); // 로그인 상태로 업데이트
+          localStorage.setItem('user', response.data.data.access_token);
         }
         
       } catch (error) {
@@ -98,7 +99,17 @@ const authModule: Module<AuthState, any> = {
         localStorage.removeItem('user');
       }
     },
-
+    async getUserInfo({commit, state}) {
+      try {
+        const headers = {
+          Authorization: `${state.access_token}`,
+        };
+        const response = await getUserInfo(headers);
+        commit('setNickName', response.data.data.nick_name);
+      } catch (error) {
+        
+      }
+    }
   },
 };
 
