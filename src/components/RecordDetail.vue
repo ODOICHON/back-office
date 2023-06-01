@@ -62,22 +62,31 @@ export default defineComponent({
             });
         };
         const moveToUpdate = (id: number) => {
-            router.push({
-                path: `/records/update/${id}`
-            });
+            const result = confirm('게시글을 수정하시겠습니까?');
+            if(result) {
+                router.push({
+                    path: `/records/update/${id}`
+                });
+            }
         };
         const deleteItem = (id: number) => {
-            store.dispatch('deleteRecord', id).then(() => {
+            const result = confirm('게시글을 삭제하시겠습니까? 삭제된 게시글은 되돌릴 수 없습니다.');
+            if(result) {
+                store.dispatch('deleteRecord', id).then(() => {
                 router.push('/');
             });
+            }
         };
         const saveReview = (id: number, status : string) => {
-            const reviewReq : ReviewReq = {
-                record_id : id,
-                content: content.value,
-                status : status
+            const result = confirm('리뷰를 등록하시겠습니까?');
+            if(result) {
+                const reviewReq : ReviewReq = {
+                    record_id : id,
+                    content: content.value,
+                    status : status
+                }
+                store.dispatch('saveReview', reviewReq);
             }
-            store.dispatch('saveReview', reviewReq);
         }
         return {
             selectedItem,
