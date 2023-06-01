@@ -80,12 +80,16 @@ export default defineComponent({
         const saveReview = (id: number, status : string) => {
             const result = confirm('리뷰를 등록하시겠습니까?');
             if(result) {
-                const reviewReq : ReviewReq = {
+                if(content.value.length >= 1) {
+                    const reviewReq : ReviewReq = {
                     record_id : id,
                     content: content.value,
                     status : status
                 }
                 store.dispatch('saveReview', reviewReq);
+                } else {
+                    alert('리뷰 내용은 1자 이상 작성하셔야 합니다.');
+                }
             }
         }
         return {
