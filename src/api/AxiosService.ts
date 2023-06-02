@@ -1,4 +1,5 @@
 import store from '@/store';
+import { ErrorResponse } from '@/types/Response';
 import axios, { AxiosError, AxiosPromise } from 'axios';
 
 // REST API 통신을 위한 axios 객체 선언 및 초기화
@@ -7,11 +8,6 @@ export const restApi = axios.create({
     timeout: 50000
 })
 restApi.defaults.withCredentials = true; // 쿠키 자동 등록 설정
-
-export interface ErrorResponse {
-    code: string;
-    message: string;
-}
 
 // 401 에러 처리를 위한 axios 인터셉터
 let refresh = false;
