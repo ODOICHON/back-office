@@ -2,6 +2,8 @@ import { getRecordList, getRecord, createRecord, getHotRecordList, updateRecord,
 import { Module } from 'vuex';
 import RecordType, { RecordCreateReq, RecordData, RecordHotType, RecordPageType, RecordReqParam, RecordUpdateReq } from '@/types/RecordType';
 import { filters } from '@/constants/myPageFilter';
+import { CommentReq } from '@/types/Comment';
+import { createComment } from '@/api/Comment';
 
 // board에 대한 store 관리
 export const recordModule: Module<any, any> = {
@@ -166,6 +168,17 @@ export const recordModule: Module<any, any> = {
         commit('setMypageFilter', filters[3]);
       } catch (error) {
         console.error(error);
+      }
+    },
+    async createComment({commit, rootState}, req: CommentReq) {
+      try {
+        const headers = {
+          Authorization: `${rootState.auth.access_token}`,
+        };
+        const response = await createComment(req, headers);
+        // alert(`${response.data.data} d???` );
+      } catch (error) {
+        console.error('댓글 생성에 실패하셨습니다.');
       }
     }
   },
