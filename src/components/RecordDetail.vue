@@ -11,7 +11,7 @@
         <div id="viewer" class="overflow-hidden flex-md-row mb-4 h-md-250 position-relative"> </div>
     </article>
 
-    <div class="mb-3" v-if="currentUser != selectedItem?.nick_name">
+    <div class="mb-3" v-if="currentUser != '' && currentUser != selectedItem?.nick_name">
         <label for="content" class="form-label"></label>
         <textarea class="form-control" id="content" rows="3" v-model="content"></textarea>
         <div class="btn-container text-end">
