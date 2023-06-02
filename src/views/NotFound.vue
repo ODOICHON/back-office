@@ -1,16 +1,16 @@
 <template>
     <div class="row">
         <div class="p-4" id="container">
-            <img src="@/assets/Group-1015.png"/>
+            <img src="@/assets/crash-door.png"/>
 
         </div>
         <div class="p-4" id="container-second">
 
-            <img src="@/assets/Group-965.png" />
+            <img src="@/assets/notfound-text.png" />
         </div>
         <div class="p-4" id="container-third">
 
-            <img src="@/assets/Group-947.png" @click="moveToMain()"/>
+            <img src="@/assets/return-main-btn.png" @click="moveToMain()"/>
         </div>
     </div>
   </template>
