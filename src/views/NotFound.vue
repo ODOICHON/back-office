@@ -19,11 +19,7 @@
   import router from '@/router';
   export default {
     setup() {
-        const moveToMain = () => {
-            router.push({
-                path: "/",
-            });
-        };
+        const moveToMain = () => router.push({ path: "/" });
         return {
         moveToMain
       }
