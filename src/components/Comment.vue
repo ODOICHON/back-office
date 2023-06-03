@@ -69,9 +69,7 @@ export default {
         const parent_id = ref(0); // 답글의 부모 댓글 ID를 저장하는 변수
         const replyContent = ref(''); // 답글 내용을 저장하는 변수
         const commentContent = ref('');
-        const filteredReplies = computed(() =>
-            props.comments.filter((reply: CommentType) => reply.level >= 2)
-        );
+        const filteredReplies = computed(() => props.comments.filter((reply: CommentType) => reply.level >= 2));
 
         const handleSubmit = () => {
             const commentReq: CommentReq = {
@@ -79,9 +77,7 @@ export default {
                 parent_id: null,
                 content: commentContent.value
             };
-            store.dispatch('createComment', commentReq).catch(() => {
-                commentContent.value = '';
-            });
+            store.dispatch('createComment', commentReq).catch(() => { commentContent.value = '';});
         };
 
         const handleReplySubmit = (parentId: number) => {
@@ -93,14 +89,10 @@ export default {
                 content: replyContent.value,
             };
 
-            store.dispatch('createComment', commentReq).catch(() => {
-                replyContent.value = '';
-            });
+            store.dispatch('createComment', commentReq).catch(() => { replyContent.value = '';});
         };
 
-        const deleteComment = (commentId : number) => {
-            store.dispatch('deleteComment', commentId);
-        };
+        const deleteComment = (commentId : number) => { store.dispatch('deleteComment', commentId);};
 
         return {
             parent_id,
