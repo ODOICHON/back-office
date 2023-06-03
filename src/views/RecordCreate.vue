@@ -105,7 +105,11 @@ export default defineComponent({
         const result = confirm('리뷰 신청하시겠습니까?');
       if (result) {
         const markdownContent = editor.value?.getMarkdown();
-        // console.log('markdownContent', markdownContent);
+        if(selectedType.value === 'odori') {
+          selectedCategory.value = 'culture';
+        } else if(selectedType.value === 'retro') {
+          selectedCategory.value = 'retrospection';
+        }
 
         const createRecord: RecordCreateReq = {
           title: title.value,
