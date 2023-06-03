@@ -15,7 +15,7 @@
           <!-- 부모 컴포넌트 -->
           <div v-if="comment.level === 1">
             <div class="ms-3">
-              <div class="fw-bold">{{ comment.create_at }} | {{ comment.nick_name }} <button type="button" class="btn btn-danger" @click="deleteComment(comment.comment_id)" v-if="currentUser != '' && currentUser == comment.nick_name">삭제</button></div>
+              <div class="fw-bold">{{ comment.create_at }} | {{ comment.nick_name }} <button type="button" class="btn btn-danger" @click="deleteComment(comment.comment_id)" v-if="currentUser != '' && currentUser == comment.nick_name && !comment.content.startsWith('삭제된')">삭제</button></div>
               {{ comment.content }}
               <!-- 답글 컴포넌트 -->
               <div class="d-flex mt-4" v-for="reply in filteredReplies" :key="reply.level">
@@ -72,12 +72,15 @@ export default {
         const filteredReplies = computed(() => props.comments.filter((reply: CommentType) => reply.level >= 2));
 
         const handleSubmit = () => {
+          const result = confirm('댓글을 등록하시겠습니까?');
+          if(result) {
             const commentReq: CommentReq = {
                 record_id: props.record_id,
                 parent_id: null,
                 content: commentContent.value
             };
             store.dispatch('createComment', commentReq).catch(() => { commentContent.value = '';});
+          }
         };
 
         const handleReplySubmit = (parentId: number) => {
@@ -92,7 +95,12 @@ export default {
             store.dispatch('createComment', commentReq).catch(() => { replyContent.value = '';});
         };
 
-        const deleteComment = (commentId : number) => { store.dispatch('deleteComment', commentId);};
+        const deleteComment = (commentId : number) => { 
+          const result = confirm('댓글을 삭제하시겠습니까? 삭제 시, 내용만 삭제됩니다.');
+          if(result) {
+            store.dispatch('deleteComment', commentId);
+          }
+        };
 
         return {
             parent_id,
