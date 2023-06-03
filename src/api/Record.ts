@@ -1,4 +1,4 @@
-import { RecordResponse, RecordPageResponse, RecordCreateReq, RecordCreateResponse, RecordHotResponse, RecordUpdateReq } from "@/types/RecordType";
+import { RecordResponse, RecordPageResponse, RecordCreateReq, RecordCreateResponse, RecordHotResponse, RecordUpdateReq, RecordReqParam } from "@/types/RecordType";
 import { AxiosPromise } from "axios";
 import { restApi } from "./AxiosService";
 import { API_URLS } from "@/constants/config";
@@ -10,8 +10,8 @@ export function getRecord(id: number) : AxiosPromise<RecordResponse> {
 
 // 게시글 리스트 조회
 // api/v1/record/{part}/{type}?category=&page=
-export function getRecordList(page : number, part: string, type : string, category : string) : AxiosPromise<RecordPageResponse> {
-    return restApi.get(`${API_URLS.record}/${part}/${type}?category=${category}&page=${page}`);
+export function getRecordList(reqParam : RecordReqParam) : AxiosPromise<RecordPageResponse> {
+    return restApi.get(`${API_URLS.record}/${reqParam.part}/${reqParam.type}?category=${reqParam.category}&page=${reqParam.page}`);
 }
 
 // 금주의 핫 게시물 리스트 조회

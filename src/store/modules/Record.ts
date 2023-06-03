@@ -49,7 +49,7 @@ export const recordModule: Module<any, any> = {
   actions: { // 비동기 처리를 할 때 사용한다. 
     async getRecordList({ commit }, reqParam : RecordReqParam) {
       try {
-        const response = await getRecordList(reqParam.page, reqParam.part, reqParam.type, reqParam.category);
+        const response = await getRecordList(reqParam);
         commit('setRecordPages', response.data.data.records.content);
         commit('setTotalPages', response.data.data.records.totalPages);
         commit('setPage', response.data.data.records.totalElements);
@@ -176,7 +176,6 @@ export const recordModule: Module<any, any> = {
           Authorization: `${rootState.auth.access_token}`,
         };
         const response = await createComment(req, headers);
-        // alert(`${response.data.data} d???` );
       } catch (error) {
         console.error('댓글 생성에 실패하셨습니다.');
       }
