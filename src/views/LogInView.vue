@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <form @submit="handleSubmit">
+        <form @submit.prevent="handleSubmit">
             <div>
                 <label for="email">로그인 ID</label>
-                <input type="text" id="email" v-model="email" class="form-control">
+                <input type="text" id="email" v-model="email" class="form-control" @keypress.enter.prevent>
             </div>
             <div>
                 <label for="password">비밀번호</label>
@@ -49,7 +49,11 @@ export default defineComponent({
                 password: this.password,
             };
 
-            store.dispatch('login', loginReq).then(() => { store.dispatch('getUserInfo').then(() => { this.router.push({name: 'home'});})}
+            store.dispatch('login', loginReq).then(() => {
+                store.dispatch('getUserInfo').then(() => {
+                    this.$router.go(-1);
+                })
+            }
             ).catch(() => {
                 this.email = '';
                 this.password = '';
@@ -57,7 +61,7 @@ export default defineComponent({
 
         },
     },
-    setup(){
+    setup() {
         const router = useRouter();
         return {
             router

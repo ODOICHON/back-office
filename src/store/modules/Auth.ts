@@ -63,7 +63,7 @@ const authModule: Module<AuthState, any> = {
         }
 
       } catch (error) {
-        alert('로그인에 실패하셨습니다.'); // To-Do
+        
       }
     },
     async logout({ commit, state }) {
