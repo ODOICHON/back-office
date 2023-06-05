@@ -7,3 +7,6 @@ export const authComputed = {
 export const reviewComputed = {
     ...mapGetters(['reviewFilter'])
 };
+export const getCurrentUser = {
+    ...mapGetters(['currentUser'])
+}

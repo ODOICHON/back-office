@@ -14,6 +14,9 @@ const store = createStore({
     },
     reviewFilter(state) {
       return state.reocrds.myPageFilter
+    },
+    currentUser(state) {
+      return state.auth.nick_name
     }
   },
 })

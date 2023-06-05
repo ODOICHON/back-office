@@ -49,10 +49,7 @@ export default defineComponent({
                 password: this.password,
             };
 
-            store.dispatch('login', loginReq).then(
-                () => {
-                    this.router.push({name: 'home'});
-                }
+            store.dispatch('login', loginReq).then(() => { store.dispatch('getUserInfo').then(() => { this.router.push({name: 'home'});})}
             ).catch(() => {
                 this.email = '';
                 this.password = '';
