@@ -5,9 +5,9 @@
             <div class="p-4">
                 <h4 class="fst-italic">Category</h4>
                 <ol class="list-unstyled mb-0">
-                    <li><router-link :to="`/`" @click="getRecordList(parts[0])">{{ parts[0] }}</router-link></li>
-                    <li><router-link :to="`/`" @click="getRecordList(parts[1])">{{ parts[1] }}</router-link></li>
-                    <li><router-link :to="`/`" @click="getRecordList(parts[2])">{{ parts[2] }}</router-link></li>
+                    <li><router-link :to="`/`" @click="getRecordList(parts[0])">{{ parts[0].toUpperCase() }}</router-link></li>
+                    <li><router-link :to="`/`" @click="getRecordList(parts[1])">{{ parts[1].toUpperCase() }}</router-link></li>
+                    <li><router-link :to="`/`" @click="getRecordList(parts[2])">{{ parts[2].toUpperCase() }}</router-link></li>
                 </ol>
             </div>
             <!-- 금주의 인기 게시물 리스트 ( TOP 3 ) -->

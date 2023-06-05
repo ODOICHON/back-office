@@ -77,6 +77,7 @@ const authModule: Module<AuthState, any> = {
         commit('setLoggedIn', false); // 로그아웃 상태로 업데이트
         commit('setAccessToken', ''); // access-toekn 빈 값으로 초기화
         localStorage.removeItem('user');
+        localStorage.removeItem('nick_name');
       } catch (error) {
         console.error('로그아웃에 실패하셨습니다.');
       }
@@ -105,6 +106,7 @@ const authModule: Module<AuthState, any> = {
           Authorization: `${state.access_token}`,
         };
         const response = await getUserInfo(headers);
+        localStorage.setItem('nick_name', response.data.data.nick_name);
         commit('setNickName', response.data.data.nick_name);
       } catch (error) {
         

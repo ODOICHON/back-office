@@ -10,6 +10,7 @@ const userString = localStorage.getItem('user');
 if (userString) {
   store.commit('setAccessToken', userString);
   store.commit('setLoggedIn', true);
+  store.commit('setNickName', localStorage.getItem('nick_name'));
 }
 
 app.use(router);

@@ -6,12 +6,14 @@
         </div>
         <p class="blog-post-meta">{{ selectedItem?.create_at }} by {{ selectedItem?.nick_name }} <strong
                 class="d-inline-block mb-2 text-primary"> {{ selectedItem?.part }}</strong></p>
-        <h2 class="blog-post-title mb-1">{{ selectedItem?.title }}</h2>
+        <h2 class="blog-post-title mb-1">{{ selectedItem?.title }} </h2>
 
         <div id="viewer" class="overflow-hidden flex-md-row mb-4 h-md-250 position-relative"> </div>
     </article>
 
-    <div class="mb-3" v-if="currentUser != selectedItem?.nick_name">
+    <comment :comments="selectedItem?.comments?.content" :record_id="selectedItem.record_id"></comment>
+
+    <div class="mb-3" v-if="currentUser != '' && currentUser != selectedItem?.nick_name">
         <label for="content" class="form-label"></label>
         <textarea class="form-control" id="content" rows="3" v-model="content"></textarea>
         <div class="btn-container text-end">
@@ -31,11 +33,13 @@ import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { Editor, EditorCore, Viewer } from '@toast-ui/editor'; // 수정된 import 문
 import { authComputed, getCurrentUser } from '@/store/helper';
 import { ReviewReq } from '@/types/ReviewType';
+import Comment from './Comment.vue';
 
 export default defineComponent({
     name: 'RecordDetail',
     components: {
         viewer: document.querySelector('#viewer') as HTMLElement,
+        Comment,
     },
     computed: {
         ...getCurrentUser,
