@@ -5,7 +5,7 @@
         <!-- 부모 댓글 작성 폼 -->
         <form class="mb-4" @submit="handleSubmit">
           <label for="commentContent" class="form-label"></label>
-          <textarea class="form-control" rows="3" id="commentContent" placeholder="로그인 후, 댓글을 남겨보세요!" v-model="commentContent"></textarea>
+          <textarea class="form-control" rows="3" id="commentContent" placeholder="로그인 후, 댓글을 남겨보세요!" v-model="commentContent"  @focus="handleFocus(loggedIn)"></textarea>
           <div class="btn-container text-end" style="margin-top: 10px;">
             <button class="btn" type="submit">등록</button>
           </div>
@@ -102,6 +102,13 @@ export default {
           }
         };
 
+        const handleFocus = (loggedIn: boolean) => {
+          if(!loggedIn) {
+            alert('로그인을 먼저 하셔야 합니다.');
+            router.push({name: 'Login'});
+          }
+        };
+
         return {
             parent_id,
             replyContent,
@@ -110,6 +117,7 @@ export default {
             handleReplySubmit,
             deleteComment,
             filteredReplies,
+            handleFocus,
         }
     }
 }
