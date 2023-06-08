@@ -17,8 +17,8 @@
         <label for="content" class="form-label"></label>
         <textarea class="form-control" id="content" rows="3" v-model="content"></textarea>
         <div class="btn-container text-end">
-            <button class="btn btn-warning" @click="saveReview(selectedItem.record_id, 'approve')">리뷰 반려</button> <button class="btn btn-primary"
-                @click="saveReview(selectedItem.record_id, 'reject')">리뷰 승인</button>
+            <button class="btn btn-warning" @click="saveReview(selectedItem.record_id, 'reject')">리뷰 반려</button> <button class="btn btn-primary"
+                @click="saveReview(selectedItem.record_id, 'approve')">리뷰 승인</button>
         </div>
     </div>
    
