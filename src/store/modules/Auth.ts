@@ -45,7 +45,7 @@ const authModule: Module<AuthState, any> = {
           
           commit('setLoggedIn', true); // 로그인 상태로 업데이트
           commit('setAccessToken', response.data.data.access_token); // access-token 값 세팅
-          localStorage.setItem('user', response.data.data.access_token); // 로컬 스토리지에 토큰 값 저장
+          localStorage.setItem('admin', response.data.data.access_token); // 로컬 스토리지에 토큰 값 저장
         } else {
           // 서버측에서 커스터마이징한 오류 분기 처리
           if (response.data.code === 'U0001') {
@@ -76,7 +76,7 @@ const authModule: Module<AuthState, any> = {
         await logout(headers);
         commit('setLoggedIn', false); // 로그아웃 상태로 업데이트
         commit('setAccessToken', ''); // access-toekn 빈 값으로 초기화
-        localStorage.removeItem('user');
+        localStorage.removeItem('admin');
         localStorage.removeItem('nick_name');
       } catch (error) {
         console.error('로그아웃에 실패하셨습니다.');
@@ -90,14 +90,14 @@ const authModule: Module<AuthState, any> = {
         if (response.data.code === 'SUCCESS') {
           commit('setAccessToken', response.data.data.access_token);
           commit('setLoggedIn', true); // 로그인 상태로 업데이트
-          localStorage.setItem('user', response.data.data.access_token);
+          localStorage.setItem('admin', response.data.data.access_token);
         }
         
       } catch (error) {
         alert('토큰 재발급에 실패하셨습니다.');
         commit('setLoggedIn', false);
         commit('setAccessToken', '');
-        localStorage.removeItem('user');
+        localStorage.removeItem('admin');
       }
     },
     async getUserInfo({commit, state}) {
