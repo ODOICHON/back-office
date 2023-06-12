@@ -90,7 +90,7 @@ export default defineComponent({
                     content: content.value,
                     status : status
                 }
-                store.dispatch('saveReview', reviewReq);
+                store.dispatch('saveReview', reviewReq).then(() => {router.push(`/record/${id}`)});
                 } else {
                     alert('리뷰 내용은 1자 이상 작성하셔야 합니다.');
                 }
