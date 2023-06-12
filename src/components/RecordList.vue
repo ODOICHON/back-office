@@ -1,6 +1,6 @@
 <template>
     <div class="col mb-2" >
-        <div class="container d-flex flex-column justify-content-center min-vh-100" v-if="records.length !== 0">
+        <div class="container d-flex flex-column justify-content-start min-vh-100" v-if="records.length !== 0">
         <!-- 게시글 카드 4개씩 페이지네이션  -->
         <div class="row-md-5 text-start" v-for="record, idx in records" :key="record.record_id">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"

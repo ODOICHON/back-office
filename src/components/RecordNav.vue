@@ -19,14 +19,7 @@
         </div>
         <!-- 필터에 따른 게시글 데이터 리스트 -->
         <record-list :records="records"></record-list>
-        <!-- 필터에 따른 게시글 데이터 리스트 페이징 처리 -->
-        <nav aria-label="Page navigation example" class="col-md-6">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" v-for="idx in page" :key="idx"><a class="page-link" @click="fetchData(Number(idx))">{{
-                    idx
-                }}</a></li>
-            </ul>
-        </nav>
+        
     </div>
 </template>
 
