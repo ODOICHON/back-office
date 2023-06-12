@@ -15,12 +15,12 @@
           <!-- 부모 컴포넌트 -->
           <div v-if="comment.level === 1">
             <div class="ms-3">
-              <div class="fw-bold">{{ comment.create_at }} | {{ comment.nick_name }} <button type="button" class="btn btn-danger" @click="deleteComment(comment.comment_id)" v-if="currentUser != '' && currentUser == comment.nick_name && !comment.content.startsWith('삭제된')">삭제</button></div>
+              <div class="fw-bold">{{ comment.create_at }} | {{ comment.nick_name }} <button type="button" class="btn btn-danger" @click="deleteComment(comment.comment_id)" v-if="currentUser != '' && currentUser.nick_name == comment.nick_name && !comment.content.startsWith('삭제된')">삭제</button></div>
               {{ comment.content }}
               <!-- 답글 컴포넌트 -->
               <div class="d-flex mt-4" v-for="reply in filteredReplies" :key="reply.level">
                 <div class="ms-3" v-if="comment.comment_id < reply.comment_id">
-                  <div class="fw-bold">{{ reply.create_at }} | {{ reply.nick_name }} <button type="button" class="btn btn-danger" @click="deleteComment(comment.comment_id)" v-if="currentUser != '' && currentUser == comment.nick_name">삭제</button></div>
+                  <div class="fw-bold">{{ reply.create_at }} | {{ reply.nick_name }} <button type="button" class="btn btn-danger" @click="deleteComment(comment.comment_id)" v-if="currentUser != '' && currentUser.nick_name == comment.nick_name">삭제</button></div>
                   {{ reply.content }}
                 </div>
               </div>
