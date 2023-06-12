@@ -95,10 +95,12 @@ const authModule: Module<AuthState, any> = {
         }
         
       } catch (error) {
-        alert('토큰 재발급에 실패하셨습니다.');
         commit('setLoggedIn', false);
         commit('setAccessToken', '');
+        commit('setUserInfo', {});
         localStorage.removeItem('admin');
+        localStorage.removeItem('userInfo');
+        alert('토큰 재발급에 실패하셨습니다.');
       }
     },
     async getUserInfo({commit, state}) {
