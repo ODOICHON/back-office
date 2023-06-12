@@ -71,5 +71,5 @@ export interface RecordReqParam {
     page : number;
     part : string;
     type: string;
-    category: string;
+    category: any;
 }
