@@ -1,18 +1,19 @@
 import { Module } from 'vuex';
 import { getUserInfo, login, logout } from '@/api/User';
 import { reissue } from '../../api/User';
+import { UserInfoRes } from '@/types/UserType';
 
 interface AuthState {
   isLoggedIn: boolean;
   access_token: string;
-  nick_name: string;
+  userInfo: UserInfoRes;
 }
 
 const authModule: Module<AuthState, any> = {
   state: {
     isLoggedIn: false,
     access_token: '',
-    nick_name: '',
+    userInfo: {} as UserInfoRes,
   },
   getters: {
     getIsLoggedIn(state) {
@@ -21,8 +22,8 @@ const authModule: Module<AuthState, any> = {
     getAccessToken(state) {
       return state.access_token;
     },
-    getNickName(state) {
-      return state.nick_name;
+    getUserInfo(state) {
+      return state.userInfo;
     }
   },
   mutations: {
@@ -32,8 +33,8 @@ const authModule: Module<AuthState, any> = {
     setAccessToken(state, access_token: string) {
       state.access_token = access_token;
     },
-    setNickName(state, nick_name: string) {
-      state.nick_name = nick_name;
+    setUserInfo(state, userInfo: UserInfoRes) {
+      state.userInfo = userInfo;
     }
   },
   actions: {
@@ -77,7 +78,7 @@ const authModule: Module<AuthState, any> = {
         commit('setLoggedIn', false); // 로그아웃 상태로 업데이트
         commit('setAccessToken', ''); // access-toekn 빈 값으로 초기화
         localStorage.removeItem('admin');
-        localStorage.removeItem('nick_name');
+        localStorage.removeItem('userInfo');
       } catch (error) {
         console.error('로그아웃에 실패하셨습니다.');
       }
@@ -106,8 +107,8 @@ const authModule: Module<AuthState, any> = {
           Authorization: `${state.access_token}`,
         };
         const response = await getUserInfo(headers);
-        localStorage.setItem('nick_name', response.data.data.nick_name);
-        commit('setNickName', response.data.data.nick_name);
+        localStorage.setItem('userInfo', JSON.stringify(response.data.data));
+        commit('setUserInfo', response.data.data);
       } catch (error) {
         
       }

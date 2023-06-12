@@ -5,7 +5,7 @@
                 <img src="@/assets/default.png" style="width:100%;" class="rounded-circle"/>
             </div>
             <div class="p-4">
-                <h4 class="fst-bold">{{ currentUser }} | SERVER</h4>
+                <h4 class="fst-bold">{{ currentUser.nick_name }} | SERVER</h4>
             </div>
         </div>
     </div>
@@ -16,7 +16,7 @@ import { computed, onMounted } from 'vue'
 import store from '@/store'
 export default {
     setup () {
-        const currentUser = computed(() => store.state.auth.nick_name);
+        const currentUser = computed(() => store.state.auth.userInfo);
 
         const getNickName = () => {
             store.dispatch('getUserInfo');
