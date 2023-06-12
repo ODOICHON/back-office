@@ -3,22 +3,19 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import { UserInfoRes } from './types/UserType';
+import { UserData } from './types/UserType';
 const app = createApp(App);
 
 // 로그인 상태를 유지하기 위한 초기화 로직
 const userString = localStorage.getItem('user');
 const adminString = localStorage.getItem('admin');
-interface UserState {
-  token : string;
-  user : UserInfoRes;
-}
-const userState : UserState = JSON.parse(userString!);
+
+const userState : UserData = JSON.parse(userString!);
 
 if (userState) {
-  console.log(userState.token);
-  console.log(userState.user.nick_name);
-  store.commit('setAccessToken', userState.token);
+  console.log(userState.state.token.access_token);
+  console.log(userState.state.user.nick_name);
+  store.commit('setAccessToken', userState.state.token.access_token);
   store.commit('setLoggedIn', true);
   // store.commit('setNickName', localStorage.getItem('nick_name'));
 } else if(adminString) {
