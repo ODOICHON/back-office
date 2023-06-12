@@ -81,8 +81,10 @@ const router = createRouter({
 
 // router guard : 이동 전에 전역으로 관리하는 처리
 router.beforeEach((to, from, next) => {
-  const loggedIn = localStorage.getItem('user');
-  if(to.matched.some(record => record.meta.requiresAuth) && !loggedIn) { // 로그인 상태이어야 하며, 로그인 상태인지 확인
+  const loggedInWithReact = localStorage.getItem('user');
+  const loggedInWithVue = localStorage.getItem('admin');
+  const isLoggedIn = loggedInWithReact != null || loggedInWithVue != null;
+  if(to.matched.some(record => record.meta.requiresAuth) && !isLoggedIn) { // 로그인 상태이어야 하며, 로그인 상태인지 확인
     // console.log('상세야 여기니?');
     next('/') // 아니면 메인 페이지로 이동
   }
