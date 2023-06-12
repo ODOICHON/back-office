@@ -13,7 +13,7 @@
 
     <comment :comments="selectedItem?.comments?.content" :record_id="selectedItem.record_id"></comment>
 
-    <div id="review-container" class="mb-3" v-if="currentUser != '' && currentUser != selectedItem?.nick_name">
+    <div id="review-container" class="mb-3" v-if="currentUser != '' && currentUser.nick_name != selectedItem?.nick_name">
         <label for="content" class="form-label"></label>
         <textarea class="form-control" id="content" rows="3" v-model="content"></textarea>
         <div class="btn-container text-end">

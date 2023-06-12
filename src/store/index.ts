@@ -18,7 +18,7 @@ const store = createStore({
       return state.reocrds.myPageFilter
     },
     currentUser(state) {
-      return state.auth.nick_name
+      return state.auth.userInfo
     }
   },
 })
