@@ -2,16 +2,6 @@
   <div class="col g-1" id="container">
     <record-list :records="records"></record-list>
     
-    <nav aria-label="Page navigation example" class="col-md-6">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" v-for="idx in page" :key="idx"><a class="page-link" @click="fetchData(Number(idx))">{{ idx
-        }}</a></li>
-      </ul>
-
-    </nav>
-    <div class="col-md-6 text-start">
-      <button type="button" class="btn btn-outline-secondary me-2" @click="createData()" v-if="loggedIn">글쓰기</button>
-    </div>
   </div>
 </template>
 <script lang="ts">

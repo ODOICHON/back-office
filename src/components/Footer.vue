@@ -56,9 +56,6 @@
           <p>
             <a href="/" class="text-reset">Tech</a>
           </p>
-          <p>
-            <a href="/about" class="text-reset">Help</a>
-          </p>
           
         </div>
         <!-- Grid column -->

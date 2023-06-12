@@ -44,8 +44,8 @@ export default {
         const reqParam : RecordReqParam = { // To-Do 동적으로 요청 param 바뀌도록
         page: 0,
         part : part,
-        type: 'tech',
-        category: 'disaster' // 이거 어떻게 처리할지 고민
+        type: 'all',
+        category: null // 이거 어떻게 처리할지 고민
       };
         store.dispatch('getRecordList', reqParam);
     }
