@@ -39,7 +39,7 @@ export default {
             });
         }
         const moveLogOut = () => {
-            store.dispatch('logout');
+            store.dispatch('logout').then(() => router.push({path: '/'}));
         }
         const moveMypage = () => {
             router.push({
