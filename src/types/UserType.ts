@@ -27,3 +27,15 @@ export interface UserInfoRes {
     authority : string;
     age: string;
 }
+
+export interface UserData {
+    state: {
+      user: UserInfoRes;
+      token: Token;
+    };
+    version: number;
+  }
+
+export interface Token {
+    access_token : string;
+}
