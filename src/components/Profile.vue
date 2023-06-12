@@ -23,7 +23,9 @@ export default {
         };
         
         onMounted(() => {
-            getNickName();
+            if(currentUser.value == null) {
+                getNickName();
+            }
         });
 
         
