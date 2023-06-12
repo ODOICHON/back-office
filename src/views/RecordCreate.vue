@@ -39,7 +39,7 @@ import { RecordCreateReq, RecordUpdateReq } from '@/types/RecordType';
 import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { defineComponent, onMounted, ref, defineEmits, computed, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import {categories, parts, types} from '@/constants/selectBox';
 
@@ -54,6 +54,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const store = useStore();
+    const route = useRoute();
     const router = useRouter();
     const editor = ref<Editor>();
     const fetchData = computed(() => store.state.records.records);
@@ -64,7 +65,9 @@ export default defineComponent({
     const selectedCategory = ref(categories.find((category) => category.name === '장애관리')?.id);
 
     onMounted(() => {
-      if(fetchData.value.record_id > 1) {
+      const currentPath = route.path;
+      console.log(currentPath);
+      if(fetchData.value.record_id > 1 && currentPath != '/records/write') {
         title.value = fetchData.value.title;
         selectedPart.value = fetchData.value.part;
         selectedCategory.value = fetchData.value.category;
