@@ -4,16 +4,25 @@
             <button class="btn" @click="moveToUpdate(selectedItem.record_id)">수정</button> <button class="btn btn-danger"
                 @click="deleteItem(selectedItem.record_id)">삭제</button>
         </div>
-        <p class="blog-post-meta">{{ selectedItem?.create_at }} by {{ selectedItem?.nick_name }} <strong
-                class="d-inline-block mb-2 text-primary"> {{ selectedItem?.part }}</strong></p>
+        <p class="blog-post-meta">{{ selectedItem?.create_at }} by {{ selectedItem?.nick_name }} </p>
         <h2 class="blog-post-title mb-1">{{ selectedItem?.title }} </h2>
 
         <div id="viewer" class="overflow-hidden flex-md-row mb-4 h-md-250 position-relative"> </div>
     </article>
 
-    <comment :comments="selectedItem?.comments?.content" :record_id="selectedItem.record_id"></comment>
+    <div id="review-comment-container">
+        <div class="card bg-light">
+            <div class="card-body">
+                <div class="mb-4" v-for="review in selectedItem.reviews" :key="review.review_id">
+                    <div class="fw-bold">{{ review.create_at }} by {{ review.nick_name }} <strong
+                class="d-inline-block mb-2 text-primary"> {{ review.status == 'approve' ? '승인' : '반려' }}</strong></div>
+                    {{ review.content }}
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="review-container" class="mb-3" v-if="loggedIn && currentUser != '' && currentUser.nick_name != selectedItem?.nick_name">
+    <div id="review-container" class="mb-3" v-if="currentUser != '' && currentUser.nick_name != selectedItem?.nick_name">
         <label for="content" class="form-label"></label>
         <textarea class="form-control" id="content" rows="3" v-model="content"></textarea>
         <div class="btn-container text-end">
@@ -50,14 +59,14 @@ export default defineComponent({
         const router = useRouter();
         const store = useStore();
         const recordId = computed(() => route.params.id);
-        const selectedItem = computed(() => store.state.records.records);
+        const selectedItem = computed(() => store.state.review.review);
         const content = ref('');
 
         onMounted(() => {
-            getRecord(Number(recordId.value));
+            getReview(Number(recordId.value));
         });
-        const getRecord = (id: number) => {
-            store.dispatch('getRecord', id).then(() => {
+        const getReview = (id: number) => {
+            store.dispatch('getReview', id).then(() => {
                 const v = EditorCore.factory({
                     el: document.querySelector('#viewer') as HTMLElement,
                     initialValue: selectedItem.value.content,
@@ -112,7 +121,8 @@ export default defineComponent({
   
 <style scoped>
 article,
-#review-container {
+#review-container,
+#review-comment-container {
     padding-left: 70px;
     padding-right: 70px;
     margin-bottom: 40px;

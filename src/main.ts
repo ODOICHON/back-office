@@ -13,8 +13,6 @@ const adminString = localStorage.getItem('admin');
 const userState : UserData = JSON.parse(userString!);
 
 if (userState) {
-  console.log(userState.state.token.access_token);
-  console.log(userState.state.user.nick_name);
   store.commit('setAccessToken', userState.state.token.access_token);
   store.commit('setLoggedIn', true);
   // store.commit('setNickName', localStorage.getItem('nick_name'));
