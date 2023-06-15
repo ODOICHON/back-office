@@ -6,7 +6,7 @@
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
                 v-if="idx < 4">
                 <div class="col p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 text-primary">{{ record.category }}</strong>
+                    <strong class="d-inline-block mb-2 text-primary">{{ record.part }}</strong>
                     <h3 class="mb-0">{{ record.title }}</h3>
                     <div class="mb-1 text-body-secondary">{{ record.create_at }}</div>
                     <p class="card-text mb-auto">{{ record.nick_name }}</p>
@@ -37,7 +37,7 @@
 <script lang="ts">
 import { computed, onMounted, PropType, ref } from 'vue';
 import { useStore } from 'vuex';
-import RecordType, { RecordReqParam } from '@/types/RecordType';
+import RecordType, { RecordData, RecordReqParam } from '@/types/RecordType';
 import router from '@/router';
 import { authComputed, getCurrentUser } from '@/store/helper';
 
@@ -46,7 +46,7 @@ export default {
     props: {
         records: {
             required: true,
-            type: Array as PropType<RecordType[]>,
+            type: Array as PropType<RecordData[]>,
         }
     },
     computed: {
@@ -57,6 +57,7 @@ export default {
         const store = useStore();
         const totalPages = computed(() => store.state.records.totalPages);
         const page = computed(() => store.state.records.page);
+        const changedPage = ref(0);
 
         const createData = () => {
             router.push({
@@ -67,23 +68,30 @@ export default {
 
         // 게시글 리스트 조회 함수 정의
         const fetchData = (page: number) => {
-            const reqParam: RecordReqParam = { // To-Do 동적으로 요청 param 바뀌도록
+            if(router.currentRoute.value.fullPath === '/') {
+                const reqParam: RecordReqParam = { // To-Do 동적으로 요청 param 바뀌도록
                 page: page - 1,
                 part: 'all',
                 type: 'all',
                 category: null
             };
             store.dispatch('getRecordList', reqParam);
+            } else {
+                changedPage.value = page;
+            }
         };
         
         onMounted(() => {
-            fetchData(1);
-        })
+            if(store.state.records.contents.length === 0 && router.currentRoute.value.fullPath === '/') {
+                fetchData(1);
+            }
+        });
         return {
             totalPages,
             page,
             createData,
             fetchData,
+            changedPage,
         }
     }
 }
