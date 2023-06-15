@@ -91,8 +91,7 @@ router.beforeEach((to, from, next) => {
   const loggedInWithVue = localStorage.getItem('admin');
   const isLoggedIn = loggedInWithReact != null || loggedInWithVue != null;
   if(to.matched.some(record => record.meta.requiresAuth) && !isLoggedIn) { // 로그인 상태이어야 하며, 로그인 상태인지 확인
-    // console.log('상세야 여기니?');
-    next('/') // 아니면 메인 페이지로 이동
+    next('/login') // 아니면 로그인 페이지로 이동
   }
   next() // 권한이 필요 없는 페이지
 });
