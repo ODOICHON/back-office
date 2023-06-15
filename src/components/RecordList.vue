@@ -10,8 +10,8 @@
                     <h3 class="mb-0">{{ record.title }}</h3>
                     <div class="mb-1 text-body-secondary">{{ record.create_at }}</div>
                     <p class="card-text mb-auto">{{ record.nick_name }}</p>
-                    <router-link :to="`/records/${record.record_id}`"
-                        @click="getRecord(record.record_id)">자세히보기</router-link>
+                    <router-link :to="`/records/${record.record_id}`">자세히보기</router-link>
+                    <router-link :to="`/reviews/${record.record_id}`" v-if="loggedIn && currentUser.authority === 'ADMIN'">리뷰 확인하기</router-link>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@ import { computed, onMounted, PropType, ref } from 'vue';
 import { useStore } from 'vuex';
 import RecordType, { RecordReqParam } from '@/types/RecordType';
 import router from '@/router';
-import { authComputed } from '@/store/helper';
+import { authComputed, getCurrentUser } from '@/store/helper';
 
 export default {
     name: 'RecordList',
@@ -51,6 +51,7 @@ export default {
     },
     computed: {
         ...authComputed,
+        ...getCurrentUser,
     },
     setup() {
         const store = useStore();
@@ -74,14 +75,11 @@ export default {
             };
             store.dispatch('getRecordList', reqParam);
         };
-        const getRecord = (id: number) => {
-            store.dispatch('getRecord', id);
-        };
+        
         onMounted(() => {
             fetchData(1);
         })
         return {
-            getRecord,
             totalPages,
             page,
             createData,
