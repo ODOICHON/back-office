@@ -95,7 +95,9 @@
 <details>
 <summary>로그인</summary>
 <div markdown="1">
+  
 ![image](https://github.com/ODOICHON/back-office/assets/61505572/d78202f1-8f6a-424d-b2a0-b420a234e2a6)
+  
 </div>
 </details>
 
@@ -109,35 +111,45 @@
 <details>
 <summary>게시글 수정</summary>
 <div markdown="1">
+  
   ![image](https://github.com/ODOICHON/back-office/assets/61505572/a6766194-4ca2-47df-b752-a7d7ceb9cbd2)
+  
 </div>
 </details>
 
 <details>
 <summary>게시글 삭제</summary>
 <div markdown="1">
+  
   ![image](https://github.com/ODOICHON/back-office/assets/61505572/9eba77c1-4341-46e6-9694-082991d17ade)
+  
 </div>
 </details>
 
 <details>
 <summary>게시글 댓글 작성</summary>
 <div markdown="1">
+  
   ![image](https://github.com/ODOICHON/back-office/assets/61505572/7afc1b82-bff8-4443-821c-287fe29c4c82)
+  
 </div>
 </details>
 
 <details>
 <summary>마이페이지 리뷰 조회</summary>
 <div markdown="1">
+  
   ![image](https://github.com/ODOICHON/back-office/assets/61505572/5296a1c1-37ca-4aa1-b8d3-94488056a653)
+  
 </div>
 </details>
 
 <details>
 <summary>마이페이지 리뷰 등록</summary>
 <div markdown="1">
+  
  ![image](https://github.com/ODOICHON/back-office/assets/61505572/285334fd-480a-4e69-a840-4485bf9bec01)
+  
 </div>
 </details>
 
