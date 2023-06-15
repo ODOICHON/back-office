@@ -31,8 +31,7 @@ export const reviewModule : Module<any, any> = {
             try {
                 const headers = {
                     Authorization: `${rootState.auth.access_token}`,
-                  };
-                  console.log(headers.Authorization);
+                };
                 const response = await getReview(id, headers);
                 commit('setReview', response.data.data);
             } catch (error) {
