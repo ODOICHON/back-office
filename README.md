@@ -104,7 +104,9 @@
 <details>
 <summary>게시글 작성</summary>
 <div markdown="1">
+  
   ![image](https://github.com/ODOICHON/back-office/assets/61505572/ff0d33be-2a57-4eca-ae8f-1743fc5bc40e)
+  
 </div>
 </details>
 
