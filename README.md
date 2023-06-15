@@ -36,10 +36,13 @@
 - 주말의집 관리자 계정으로 로그인/로그아웃
 
 > 주말의집 서비스와 동일하게 RefreshToken을 Cookie에서 관리하는 방식으로 reissue 처리를 진행합니다.
+> 주말의집 서비스를 통해 로그인 후, 테크 블로그 접속 시 로그인 상태가 유지됩니다.
 
 **리뷰 승인된 게시글 전체 조회**
 
 - 테크 블로그에 노출되는 게시글은 모두 내부 관리자들에 의해 리뷰가 거쳐진 게시글입니다. 해당 게시글은 로그인 하지 않은 상태에서도 조회가 가능합니다.
+
+> 단, 게시글에 대한 관리자의 리뷰는 관리자만 열람할 수 있습니다.
 
 **파트별 게시글 필터링**
 
@@ -68,12 +71,14 @@
 
 **마이페이지에서 4가지 필터링 제공**
 
-- 내가 작성한 게시글 전체 조회
+- 내가 작성한 게시글 전체 조회 ( 리뷰어로부터 승인/반려 처리된 게시글을 추가 필터링 합니다. )
 - 내가 리뷰 신청한 게시글 전체 조회
-- 내가 리뷰한 게시글 전체 조회
+- 내가 리뷰한 게시글 전체 조회 ( 내가 승인/반려한 게시글을 추가 필터링 합니다. )
 - 내라 리뷰해야 하는 게시글 전체 조회
 
 위의 4가지 필터링을 거친 게시글에 대해 리뷰 해야 하는 게시글 상세보기 클릭 시, 하단에 리뷰 입력 폼이 노출됩니다.
+
+> 리뷰 확인하기 버튼을 통해 리뷰가 등록된 게시글의 상세 조회 페이지로 라우팅됩니다. 
 
 **리뷰**
 
@@ -84,6 +89,57 @@
 **올바르지 않은 URL로 접근할 경우, 404 페이지 노출**
 
 - 404 페이지 화면 구현 및 라우터 가드 적용
+
+### 테크 블로그 프로세스 정의
+
+<details>
+<summary>로그인</summary>
+<div markdown="1">
+![image](https://github.com/ODOICHON/back-office/assets/61505572/d78202f1-8f6a-424d-b2a0-b420a234e2a6)
+</div>
+</details>
+
+<details>
+<summary>게시글 작성</summary>
+<div markdown="1">
+  ![image](https://github.com/ODOICHON/back-office/assets/61505572/ff0d33be-2a57-4eca-ae8f-1743fc5bc40e)
+</div>
+</details>
+
+<details>
+<summary>게시글 수정</summary>
+<div markdown="1">
+  ![image](https://github.com/ODOICHON/back-office/assets/61505572/a6766194-4ca2-47df-b752-a7d7ceb9cbd2)
+</div>
+</details>
+
+<details>
+<summary>게시글 삭제</summary>
+<div markdown="1">
+  ![image](https://github.com/ODOICHON/back-office/assets/61505572/9eba77c1-4341-46e6-9694-082991d17ade)
+</div>
+</details>
+
+<details>
+<summary>게시글 댓글 작성</summary>
+<div markdown="1">
+  ![image](https://github.com/ODOICHON/back-office/assets/61505572/7afc1b82-bff8-4443-821c-287fe29c4c82)
+</div>
+</details>
+
+<details>
+<summary>마이페이지 리뷰 조회</summary>
+<div markdown="1">
+  ![image](https://github.com/ODOICHON/back-office/assets/61505572/5296a1c1-37ca-4aa1-b8d3-94488056a653)
+</div>
+</details>
+
+<details>
+<summary>마이페이지 리뷰 등록</summary>
+<div markdown="1">
+ ![image](https://github.com/ODOICHON/back-office/assets/61505572/285334fd-480a-4e69-a840-4485bf9bec01)
+</div>
+</details>
 
 ### 회고
 
