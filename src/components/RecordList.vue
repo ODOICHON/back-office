@@ -82,7 +82,7 @@ export default {
         };
         
         onMounted(() => {
-            if(store.state.records.contents.length === 0 && router.currentRoute.value.fullPath === '/') {
+            if(router.currentRoute.value.fullPath === '/') {
                 fetchData(1);
             }
         });
