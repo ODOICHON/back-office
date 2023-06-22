@@ -63,6 +63,7 @@ export default defineComponent({
     const selectedPart = ref(parts.find((part) => part.name === 'WEB')?.id);
     const selectedType = ref(types.find((type) => type.name === '기술적용')?.id);
     const selectedCategory = ref(categories.find((category) => category.name === '장애관리')?.id);
+    var initialValue = '';
 
     onMounted(() => {
       const currentPath = route.path;
@@ -72,13 +73,14 @@ export default defineComponent({
         selectedPart.value = fetchData.value.part;
         selectedCategory.value = fetchData.value.category;
         selectedType.value = fetchData.value.type;
+        initialValue = fetchData.value.content;
       }
       editor.value = new Editor({
         el: document.querySelector('#editor') as HTMLElement,
         height: '500px',
         initialEditType: 'markdown',
         previewStyle: 'vertical',
-        initialValue: fetchData.value.content as string,
+        initialValue: initialValue as string,
         events: {
           change: () => {
             emit('update:modelValue', editor.value?.getMarkdown());
